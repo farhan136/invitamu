@@ -1,0 +1,78 @@
+{
+    "couple": {
+        "groom": {
+            "name": "Romeo",
+            "fullName": "Romeo Wijaya",
+            "family": "Putra Pertama dari Keluarga",
+            "parents": "Bpk. Wijaya & Ibu Siti",
+            "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop"
+        },
+        "bride": {
+            "name": "Juliet",
+            "fullName": "Juliet Pratama",
+            "family": "Putri Kedua dari Keluarga",
+            "parents": "Bpk. Pratama & Ibu Dewi",
+            "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=600&auto=format&fit=crop"
+        }
+    },
+    "event": {
+        "date": "2025-12-25T08:00:00",
+        "akad": {
+            "day": "SABTU",
+            "date": "25 Desember 2025",
+            "time": "08:00 WIB - 10:00 WIB",
+            "venue": "Masjid Agung Al-Azhar",
+            "address": "Jl. Sisingamangaraja No.1, RT.2/RW.1, Selong, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12110",
+            "map_url": "https://maps.google.com"
+        },
+        "resepsi": {
+            "day": "SABTU",
+            "date": "25 Desember 2025",
+            "time": "11:00 WIB - Selesai",
+            "venue": "Grand Ballroom Hotel Indonesia",
+            "address": "Jl. M.H. Thamrin No.1, Menteng, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10310",
+            "map_url": "https://maps.google.com"
+        }
+    },
+    "story": [
+        {
+            "year": "2018",
+            "title": "First Encounter",
+            "description": "Di sebuah kedai kopi kecil di Jakarta Selatan, hujan mempertemukan kami. Secangkir latte dan percakapan hangat menjadi awal dari segalanya."
+        },
+        {
+            "year": "2023",
+            "title": "She Said Yes",
+            "description": "Di bawah langit senja Bali, sebuah cincin dan janji setia terucap. Momen magis yang membawa kami ke hari ini."
+        }
+    ],
+    "gallery": [
+        "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1520854221256-17451cc330e7?q=80&w=600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1522673607200-1645062cd958?q=80&w=600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1606800052052-a08af7148866?q=80&w=600&auto=format&fit=crop"
+    ],
+    "gifts": [
+        {
+            "bank": "BCA",
+            "accountHolder": "Romeo Wijaya",
+            "accountNumber": "1234567890"
+        },
+        {
+            "bank": "MANDIRI",
+            "accountHolder": "Juliet Pratama",
+            "accountNumber": "0987654321"
+        }
+    ],
+    "media": {
+        "background_video": "https://www.pexels.com/download/video/3062959/",
+        "background_image_fallback": "https://images.unsplash.com/photo-1519225421980-715cb0202128?q=80&w=1920&auto=format&fit=crop",
+        "cover_image": "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1920&auto=format&fit=crop",
+        "audio": "https://cdn.pixabay.com/download/audio/2022/03/10/audio_5b364808c1.mp3?filename=piano-moment-11933.mp3"
+    },
+    "verse": {
+        "text": "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya.",
+        "source": "QS. Ar-Rum: 21"
+    }
+}

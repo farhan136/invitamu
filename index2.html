@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Wedding of Romeo & Juliet</title>
+    <title id="page-title">The Wedding of...</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -30,35 +30,45 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.4); border-radius: 10px; }
 
-        /* Glass Utility Classes - ULTRA TRANSPARENT */
+        /* Glass Utility Classes */
         .glass-clean {
             background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(2px);
             -webkit-backdrop-filter: blur(2px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
         .glass-panel {
-            background: rgba(0, 0, 0, 0.15); /* Lebih gelap dikit untuk kontras teks */
+            background: rgba(0, 0, 0, 0.15);
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 16px;
         }
 
-        /* Aesthetics */
-        .washi-tape {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%) rotate(-2deg);
-            width: 100px;
-            height: 30px;
-            background-color: rgba(255,255,255,0.4);
-            backdrop-filter: blur(5px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            z-index: 20;
-            clip-path: polygon(0% 10%, 5% 0%, 10% 10%, 15% 0%, 20% 10%, 25% 0%, 30% 10%, 35% 0%, 40% 10%, 45% 0%, 50% 10%, 55% 0%, 60% 10%, 65% 0%, 70% 10%, 75% 0%, 80% 10%, 85% 0%, 90% 10%, 95% 0%, 100% 10%, 100% 90%, 95% 100%, 90% 90%, 85% 100%, 80% 90%, 75% 100%, 70% 90%, 65% 100%, 60% 90%, 55% 100%, 50% 90%, 45% 100%, 40% 90%, 35% 100%, 30% 90%, 25% 100%, 20% 90%, 15% 100%, 10% 90%, 5% 100%, 0% 90%);
+        /* NEW: Mobile Oriented Layout */
+        #body-wrapper {
+            position: relative;
+            overflow-x: hidden;
+        }
+        #body-wrapper::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+            z-index: -1;
+        }
+        main {
+            max-width: 480px; /* Slimmer width */
+            margin: 0 auto;
+            background: rgba(0,0,0,0.05); /* More transparent */
+            backdrop-filter: blur(2px); /* Subtle blur for main content */
+            -webkit-backdrop-filter: blur(2px);
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
         }
 
         /* Polaroid Enhanced */
@@ -77,80 +87,53 @@
         /* Intro Animations */
         .fade-in-delayed {
             opacity: 0;
-            animation: fadeInSimple 2s forwards;
+            animation: fadeInSimple 1.5s forwards;
         }
         @keyframes fadeInSimple {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         .cover-exit {
-            transform: translateY(-100%);
             opacity: 0;
-            transition: all 1.2s ease-in-out;
+            transition: opacity 0.8s ease-in-out;
         }
         
-        /* New Animation for Cover Image */
-        .cover-image-anim {
+        /* NEW: Custom Dropdown for RSVP */
+        .custom-dropdown-list {
             opacity: 0;
-            transform: scale(1.1);
-            transition: opacity 2s ease-out, transform 10s ease-out;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
         }
-        .cover-image-anim.active {
+        .custom-dropdown-list.active {
             opacity: 1;
-            transform: scale(1);
+            transform: translateY(0);
+            pointer-events: auto;
         }
-
-        /* Smooth Reveal Animation for Gift */
-        .animate-reveal {
-            animation: revealSmooth 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .custom-dropdown-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: background-color 0.2s;
         }
-        @keyframes revealSmooth {
-            from { 
-                opacity: 0; 
-                transform: translateY(-20px); 
-                max-height: 0;
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-                max-height: 500px;
-            }
-        }
-
-        /* Custom Select Styling */
-        select.custom-select {
-            appearance: none;
-            -webkit-appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 1rem center;
-            background-size: 1em;
-        }
-        /* Ensure options are readable on dark/glass backgrounds */
-        select.custom-select option {
-            background-color: #1a1a1a;
-            color: #f3f4f6;
-            padding: 10px;
+        .custom-dropdown-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
 <body class="bg-black text-white overflow-x-hidden antialiased font-serif">
 
     <!-- BACKGROUND VIDEO FIXED (Parallax Base) -->
-    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-50">
-        <video autoplay muted loop playsinline class="absolute min-w-full min-h-full object-cover opacity-80" style="transform: scale(1.1);">
-            <!-- NEW VIDEO SOURCE -->
-            <source src="https://www.pexels.com/download/video/3062959/" type="video/mp4">
-            <img src="https://images.unsplash.com/photo-1519225421980-715cb0202128?q=80&w=1920&auto=format&fit=crop" class="w-full h-full object-cover" alt="Background">
+    <div id="background-container" class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10">
+        <video id="bg-video" autoplay muted loop playsinline class="absolute min-w-full min-h-full object-cover opacity-80" style="transform: scale(1.1);">
+            <source id="bg-video-source" src="" type="video/mp4">
+            <img id="bg-image-fallback" src="" class="w-full h-full object-cover" alt="Background">
         </video>
-        <!-- Gradient overlay halus -->
-        <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/40"></div>
     </div>
 
     <!-- AUDIO -->
     <audio id="bg-music" loop>
-        <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_5b364808c1.mp3?filename=piano-moment-11933.mp3" type="audio/mp3">
+        <source id="audio-source" src="" type="audio/mp3">
     </audio>
     <button id="music-control" class="fixed bottom-6 right-6 z-50 w-10 h-10 rounded-full glass-panel flex items-center justify-center hidden animate-spin-slow text-white border border-white/30 shadow-lg">
         <i class="fas fa-compact-disc text-lg"></i>
@@ -158,375 +141,178 @@
 
     <!-- 1. COVER SECTION (Intro Sequence) -->
     <section id="cover" class="fixed inset-0 w-full h-full z-50 bg-black flex flex-col items-center justify-center text-center p-6 overflow-hidden">
-        
-        <!-- Animated Background Image Layer -->
-        <div class="absolute inset-0 z-0">
-            <img id="cover-bg-image" 
-                 src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1920&auto=format&fit=crop" 
-                 class="w-full h-full object-cover cover-image-anim"
-                 alt="Cover Wedding">
-        </div>
-
-        <!-- Dark Overlay for Readability -->
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm z-10 transition-opacity duration-1000" id="cover-overlay"></div>
-        
         <div class="relative z-20 max-w-lg w-full flex flex-col items-center gap-4">
-            <!-- Sequence: Title -> Names -> Date -> Guest -> Button -->
             <h3 id="intro-title" class="font-sans tracking-[0.4em] text-xs uppercase text-gray-300 opacity-0">The Wedding Of</h3>
+            <h1 id="intro-names" class="font-script text-6xl md:text-7xl text-amber-50 mb-2 drop-shadow-lg opacity-0"></h1>
             
-            <h1 id="intro-names" class="font-script text-6xl md:text-8xl text-amber-50 mb-2 drop-shadow-lg opacity-0">
-                Romeo & Juliet
-            </h1>
-
-            <div id="intro-date" class="flex items-center gap-3 text-gray-200 font-serif opacity-0 mb-6">
-                <span class="border-t border-white/50 w-8"></span>
-                <span class="tracking-widest uppercase text-sm">25 . 12 . 2025</span>
-                <span class="border-t border-white/50 w-8"></span>
+            <div id="intro-guest-wrapper" class="opacity-0 w-full">
+                <div id="intro-date" class="flex items-center justify-center gap-3 text-gray-200 font-serif mb-6">
+                    <!-- Populated by JS -->
+                </div>
+                <div id="intro-guest" class="w-full py-6 glass-clean rounded-xl">
+                    <p class="font-sans text-[10px] text-gray-300 mb-2 tracking-widest uppercase">Kepada Yth.</p>
+                    <h2 id="guest-name" class="font-serif text-2xl font-bold capitalize text-white mb-1">Tamu Spesial</h2>
+                    <p class="font-sans text-[10px] text-gray-400">Di Tempat</p>
+                </div>
+                <button id="intro-btn" onclick="openInvitation()" class="mt-8 group relative px-8 py-3 bg-white/5 hover:bg-white/10 border border-white/40 rounded-full transition-all duration-300 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.3)]">
+                    <span class="font-sans tracking-[0.2em] text-xs font-bold uppercase flex items-center gap-3 text-white">
+                        <i class="fas fa-envelope text-amber-100"></i> Buka Undangan
+                    </span>
+                </button>
             </div>
-            
-            <div id="intro-guest" class="w-full py-6 glass-clean rounded-xl opacity-0 transform scale-90 transition-all duration-700">
-                <p class="font-sans text-[10px] text-gray-300 mb-2 tracking-widest uppercase">Kepada Yth.</p>
-                <h2 id="guest-name" class="font-serif text-2xl font-bold capitalize text-white mb-1">Tamu Spesial</h2>
-                <p class="font-sans text-[10px] text-gray-400">Di Tempat</p>
-            </div>
-
-            <button id="intro-btn" onclick="openInvitation()" class="mt-8 group relative px-8 py-3 bg-white/5 hover:bg-white/10 border border-white/40 rounded-full transition-all duration-500 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.3)] opacity-0 translate-y-4">
-                <span class="font-sans tracking-[0.2em] text-xs font-bold uppercase flex items-center gap-3 text-white">
-                    <i class="fas fa-envelope text-amber-100"></i> Buka Undangan
-                </span>
-            </button>
         </div>
     </section>
+    
+    <!-- NEW: Body Wrapper for blurred sides effect -->
+    <div id="body-wrapper" class="hidden">
+        <!-- MAIN CONTENT -->
+        <main id="main-content" class="relative opacity-0 transition-opacity duration-1000">
 
-    <!-- MAIN CONTENT -->
-    <main id="main-content" class="relative hidden opacity-0 transition-opacity duration-1000">
+            <!-- 2. HERO / AYAT -->
+            <section class="min-h-screen flex flex-col items-center justify-center text-center px-6 py-20 relative">
+                <div class="max-w-2xl mx-auto space-y-8 relative z-10">
+                    <div data-aos="fade-down" data-aos-duration="1200">
+                        <p class="font-sans text-[10px] tracking-[0.5em] uppercase text-white/70 mb-2">We Are Getting Married</p>
+                        <h1 id="hero-names" class="font-script text-7xl md:text-8xl text-amber-50 leading-none drop-shadow-lg"></h1>
+                    </div>
 
-        <!-- 2. HERO / AYAT -->
-        <section class="min-h-screen flex flex-col items-center justify-center text-center px-6 py-20 relative">
-            
-            <!-- Floating Decorative Elements (Parallax) -->
-            <div class="absolute top-10 right-10 w-32 h-32 bg-amber-500/10 rounded-full blur-3xl" data-aos="fade-down" data-aos-duration="2000"></div>
-            <div class="absolute bottom-20 left-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl" data-aos="fade-up" data-aos-duration="2000"></div>
+                    <div class="py-10" data-aos="zoom-in">
+                        <div class="w-px h-20 bg-gradient-to-b from-transparent via-white/50 to-transparent mx-auto"></div>
+                    </div>
 
-            <div class="max-w-2xl mx-auto space-y-8 relative z-10">
-                <div data-aos="fade-down" data-aos-duration="1200">
-                    <p class="font-sans text-[10px] tracking-[0.5em] uppercase text-white/70 mb-2">We Are Getting Married</p>
-                    <h1 class="font-script text-7xl md:text-9xl text-amber-50 leading-none drop-shadow-lg">
-                        Romeo <br> <span class="text-4xl font-serif italic text-white/80">&</span> <br> Juliet
-                    </h1>
+                    <div class="glass-clean p-8 rounded-2xl" data-aos="fade-up" data-aos-duration="1500">
+                        <p id="verse-text" class="font-serif italic text-lg leading-loose text-gray-100 opacity-90"></p>
+                        <div class="flex justify-center items-center gap-3 mt-4 opacity-70">
+                            <span class="h-px w-8 bg-amber-200"></span>
+                            <p id="verse-source" class="font-sans text-[10px] tracking-widest uppercase text-amber-200"></p>
+                            <span class="h-px w-8 bg-amber-200"></span>
+                        </div>
+                    </div>
                 </div>
+            </section>
 
-                <div class="py-10" data-aos="zoom-in">
-                    <div class="w-px h-20 bg-gradient-to-b from-transparent via-white/50 to-transparent mx-auto"></div>
+            <!-- 3. THE COUPLE (Estetik) -->
+            <section class="py-10 px-6">
+                <div class="max-w-md mx-auto flex flex-col items-center gap-24">
+                    <div id="groom-section" class="relative w-full flex flex-col items-center group" data-aos="fade-up" data-aos-offset="200"></div>
+                    <div id="bride-section" class="relative w-full flex flex-col items-center group" data-aos="fade-up" data-aos-offset="200"></div>
                 </div>
+            </section>
 
-                <!-- Verse Section -->
-                <div class="glass-clean p-8 rounded-2xl border-none" data-aos="fade-up" data-aos-duration="1500">
-                    <p class="font-serif italic text-lg leading-loose text-gray-100 opacity-90">
-                        "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya."
+            <!-- 4. EVENT DETAILS (More Info) -->
+            <section class="py-24 px-4">
+                <div class="max-w-4xl mx-auto">
+                    <div class="glass-clean rounded-[30px] p-8 md:p-12 text-center shadow-2xl relative overflow-hidden" data-aos="fade-up">
+                        <h2 class="font-script text-5xl md:text-6xl mb-10 text-amber-50 drop-shadow-md">Save The Date</h2>
+                        <div id="countdown" class="flex flex-wrap justify-center gap-4 mb-14" data-aos="zoom-in"></div>
+                        <div class="grid grid-cols-1 gap-8 relative z-10">
+                            <div id="akad-section" class="group" data-aos="fade-right"></div>
+                            <div id="resepsi-section" class="group" data-aos="fade-left"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. LOVE STORY (Timeline) -->
+            <section class="py-16 px-6">
+                <div class="max-w-3xl mx-auto glass-clean p-8 rounded-3xl relative">
+                    <h2 class="font-script text-5xl text-center mb-12 text-amber-50" data-aos="fade-down">Our Journey</h2>
+                    <div class="absolute left-6 md:left-1/2 top-32 bottom-12 w-px bg-gradient-to-b from-transparent via-white/40 to-transparent"></div>
+                    <div id="story-container" class="space-y-12"></div>
+                </div>
+            </section>
+
+            <!-- 6. GALLERY -->
+            <section class="py-16 px-4">
+                <div class="text-center">
+                    <h2 class="font-script text-5xl mb-2 text-amber-50" data-aos="fade-down">Sweet Moments</h2>
+                    <p class="font-serif italic text-gray-400 text-sm mb-10">Capture of our love</p>
+                    <div id="gallery-container" class="grid grid-cols-2 gap-2 auto-rows-[220px] px-2"></div>
+                </div>
+            </section>
+
+            <!-- 7. GIFT -->
+            <section class="py-16 px-6">
+                <div class="max-w-lg mx-auto glass-clean rounded-3xl p-8 md:p-10 text-center relative" data-aos="zoom-in-up">
+                    <i class="fas fa-gift text-3xl text-amber-200 mb-4 animate-bounce"></i>
+                    <h2 class="font-script text-4xl mb-4 text-white">Wedding Gift</h2>
+                    <p class="font-sans text-xs text-gray-300 leading-relaxed mb-6">
+                        Kehadiran dan doa restu Anda adalah kado terindah bagi kami. Namun jika Anda ingin memberikan tanda kasih, dapat melalui tombol di bawah ini:
                     </p>
-                    <div class="flex justify-center items-center gap-3 mt-4 opacity-70">
-                        <span class="h-px w-8 bg-amber-200"></span>
-                        <p class="font-sans text-[10px] tracking-widest uppercase text-amber-200">QS. Ar-Rum: 21</p>
-                        <span class="h-px w-8 bg-amber-200"></span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. THE COUPLE (Estetik) -->
-        <section class="py-10 px-6">
-            <div class="max-w-md mx-auto flex flex-col items-center gap-24">
-                
-                <!-- Groom -->
-                <div class="relative w-full flex flex-col items-center group" data-aos="fade-up" data-aos-offset="200">
-                    <h2 class="font-hand text-5xl text-amber-100 absolute -top-12 -left-4 z-20 rotate-[-10deg] drop-shadow-md" data-aos="fade-right" data-aos-delay="300">The Groom</h2>
-                    
-                    <!-- Polaroid Frame -->
-                    <div class="polaroid-frame w-64 rotate-[-2deg] group-hover:rotate-0">
-                        <div class="washi-tape"></div> <!-- Tape Effect -->
-                        <div class="aspect-[3/4] w-full bg-gray-800 overflow-hidden relative">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop" alt="Romeo" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100">
-                        </div>
-                        <div class="mt-4 text-center">
-                            <h3 class="font-serif text-2xl font-bold text-gray-800">Romeo Wijaya</h3>
-                        </div>
-                    </div>
-                    
-                    <!-- Parents -->
-                    <div class="mt-8 text-center glass-panel px-6 py-4 max-w-xs" data-aos="fade-in" data-aos-delay="400">
-                        <p class="font-serif text-sm text-gray-300 italic">Putra Pertama dari Keluarga</p>
-                        <p class="font-sans text-xs font-bold text-white mt-1 uppercase tracking-wider">Bpk. Wijaya & Ibu Siti</p>
-                    </div>
-                </div>
-
-                <!-- Bride -->
-                <div class="relative w-full flex flex-col items-center group" data-aos="fade-up" data-aos-offset="200">
-                    <h2 class="font-hand text-5xl text-amber-100 absolute -top-12 -right-4 z-20 rotate-[10deg] drop-shadow-md" data-aos="fade-left" data-aos-delay="300">The Bride</h2>
-                    
-                    <!-- Polaroid Frame -->
-                    <div class="polaroid-frame w-64 rotate-[2deg] group-hover:rotate-0">
-                        <div class="washi-tape" style="transform: translateX(-50%) rotate(2deg);"></div> <!-- Tape Effect -->
-                        <div class="aspect-[3/4] w-full bg-gray-800 overflow-hidden relative">
-                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=600&auto=format&fit=crop" alt="Juliet" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100">
-                        </div>
-                        <div class="mt-4 text-center">
-                            <h3 class="font-serif text-2xl font-bold text-gray-800">Juliet Pratama</h3>
-                        </div>
-                    </div>
-
-                    <!-- Parents -->
-                    <div class="mt-8 text-center glass-panel px-6 py-4 max-w-xs" data-aos="fade-in" data-aos-delay="400">
-                        <p class="font-serif text-sm text-gray-300 italic">Putri Kedua dari Keluarga</p>
-                        <p class="font-sans text-xs font-bold text-white mt-1 uppercase tracking-wider">Bpk. Pratama & Ibu Dewi</p>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 4. EVENT DETAILS (More Info) -->
-        <section class="py-24 px-4">
-            <div class="max-w-4xl mx-auto">
-                <div class="glass-clean rounded-[40px] p-8 md:p-12 text-center shadow-2xl relative overflow-hidden" data-aos="fade-up">
-                    <!-- Glass Shine Effect -->
-                    <div class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/5 to-transparent pointer-events-none"></div>
-
-                    <h2 class="font-script text-5xl md:text-6xl mb-10 text-amber-50 drop-shadow-md">Save The Date</h2>
-                    
-                    <!-- Countdown -->
-                    <div id="countdown" class="flex flex-wrap justify-center gap-4 mb-14" data-aos="zoom-in">
-                        <!-- Filled by JS -->
-                    </div>
-
-                    <div class="grid md:grid-cols-2 gap-8 relative z-10">
-                        <!-- Akad -->
-                        <div class="group" data-aos="fade-right">
-                            <div class="glass-panel p-6 h-full hover:bg-white/5 transition duration-500">
-                                <h3 class="font-serif text-3xl font-bold mb-2 text-amber-100">Akad Nikah</h3>
-                                <div class="w-10 h-0.5 bg-white/20 mx-auto mb-4"></div>
-                                <p class="text-sm font-sans mb-1 text-gray-300">SABTU</p>
-                                <p class="text-xl font-bold mb-1">25 Desember 2025</p>
-                                <p class="text-sm text-amber-200/80 mb-6">08:00 WIB - 10:00 WIB</p>
-                                
-                                <div class="text-xs text-gray-300 font-sans leading-relaxed border-t border-white/10 pt-4">
-                                    <p class="font-bold text-white mb-1">Masjid Agung Al-Azhar</p>
-                                    <p>Jl. Sisingamangaraja No.1, RT.2/RW.1, Selong,</p>
-                                    <p>Kec. Kby. Baru, Kota Jakarta Selatan,</p>
-                                    <p>Daerah Khusus Ibukota Jakarta 12110</p>
-                                </div>
-                                
-                                <a href="https://maps.google.com" target="_blank" class="mt-6 inline-block px-6 py-2 border border-white/30 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition">
-                                    Lihat Peta
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- Resepsi -->
-                        <div class="group" data-aos="fade-left">
-                            <div class="glass-panel p-6 h-full hover:bg-white/5 transition duration-500">
-                                <h3 class="font-serif text-3xl font-bold mb-2 text-amber-100">Resepsi</h3>
-                                <div class="w-10 h-0.5 bg-white/20 mx-auto mb-4"></div>
-                                <p class="text-sm font-sans mb-1 text-gray-300">SABTU</p>
-                                <p class="text-xl font-bold mb-1">25 Desember 2025</p>
-                                <p class="text-sm text-amber-200/80 mb-6">11:00 WIB - Selesai</p>
-                                
-                                <div class="text-xs text-gray-300 font-sans leading-relaxed border-t border-white/10 pt-4">
-                                    <p class="font-bold text-white mb-1">Grand Ballroom Hotel Indonesia</p>
-                                    <p>Jl. M.H. Thamrin No.1, Menteng,</p>
-                                    <p>Kec. Menteng, Kota Jakarta Pusat,</p>
-                                    <p>Daerah Khusus Ibukota Jakarta 10310</p>
-                                </div>
-
-                                <a href="https://maps.google.com" target="_blank" class="mt-6 inline-block px-6 py-2 border border-white/30 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition">
-                                    Lihat Peta
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. LOVE STORY (Timeline) -->
-        <section class="py-16 px-6">
-            <div class="max-w-3xl mx-auto glass-clean p-8 rounded-3xl relative">
-                <h2 class="font-script text-5xl text-center mb-12 text-amber-50" data-aos="fade-down">Our Journey</h2>
-                
-                <!-- Line -->
-                <div class="absolute left-6 md:left-1/2 top-32 bottom-12 w-px bg-gradient-to-b from-transparent via-white/40 to-transparent"></div>
-
-                <div class="space-y-12">
-                    <!-- Story 1 -->
-                    <div class="relative flex flex-col md:flex-row gap-8 items-start md:items-center pl-10 md:pl-0" data-aos="fade-right">
-                        <div class="absolute left-0 md:left-1/2 md:-ml-2.5 w-5 h-5 rounded-full bg-amber-100 border-4 border-black/50 z-10 shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div>
-                        <div class="w-full md:w-1/2 md:pr-10 md:text-right">
-                            <span class="text-amber-200 font-bold text-xl font-serif">2018</span>
-                            <h3 class="font-serif text-lg font-bold text-white mt-1">First Encounter</h3>
-                            <p class="font-sans text-xs text-gray-300 mt-2 leading-relaxed opacity-80">
-                                Di sebuah kedai kopi kecil di Jakarta Selatan, hujan mempertemukan kami. Secangkir latte dan percakapan hangat menjadi awal dari segalanya.
-                            </p>
-                        </div>
-                        <div class="hidden md:block w-1/2"></div>
-                    </div>
-
-                    <!-- Story 2 -->
-                    <div class="relative flex flex-col md:flex-row gap-8 items-start md:items-center pl-10 md:pl-0" data-aos="fade-left">
-                        <div class="absolute left-0 md:left-1/2 md:-ml-2.5 w-5 h-5 rounded-full bg-amber-100 border-4 border-black/50 z-10 shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div>
-                        <div class="hidden md:block w-1/2"></div>
-                        <div class="w-full md:w-1/2 md:pl-10 text-left">
-                            <span class="text-amber-200 font-bold text-xl font-serif">2023</span>
-                            <h3 class="font-serif text-lg font-bold text-white mt-1">She Said Yes</h3>
-                            <p class="font-sans text-xs text-gray-300 mt-2 leading-relaxed opacity-80">
-                                Di bawah langit senja Bali, sebuah cincin dan janji setia terucap. Momen magis yang membawa kami ke hari ini.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 6. GALLERY -->
-        <section class="py-16 px-4">
-            <div class="max-w-5xl mx-auto text-center">
-                <h2 class="font-script text-5xl mb-2 text-amber-50" data-aos="fade-down">Sweet Moments</h2>
-                <p class="font-serif italic text-gray-400 text-sm mb-10">Capture of our love</p>
-                
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 auto-rows-[200px]" id="gallery-grid">
-                    <!-- Photo 1 Large -->
-                    <div class="col-span-2 row-span-2 rounded-xl overflow-hidden cursor-pointer group relative" onclick="openLightbox(this)" data-aos="zoom-in">
-                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 opacity-80 group-hover:opacity-100">
-                        <div class="absolute inset-0 border border-white/0 group-hover:border-white/20 transition-all duration-500 m-2 rounded-lg"></div>
-                    </div>
-                    <!-- Small Photos -->
-                    <div class="rounded-xl overflow-hidden cursor-pointer group relative" onclick="openLightbox(this)" data-aos="fade-up" data-aos-delay="100">
-                        <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
-                    </div>
-                    <div class="rounded-xl overflow-hidden cursor-pointer group relative" onclick="openLightbox(this)" data-aos="fade-up" data-aos-delay="200">
-                        <img src="https://images.unsplash.com/photo-1520854221256-17451cc330e7?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
-                    </div>
-                    <div class="rounded-xl overflow-hidden cursor-pointer group relative" onclick="openLightbox(this)" data-aos="fade-up" data-aos-delay="300">
-                        <img src="https://images.unsplash.com/photo-1522673607200-1645062cd958?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
-                    </div>
-                    <div class="rounded-xl overflow-hidden cursor-pointer group relative" onclick="openLightbox(this)" data-aos="fade-up" data-aos-delay="400">
-                        <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 7. GIFT -->
-        <section class="py-16 px-6">
-            <div class="max-w-lg mx-auto glass-clean rounded-3xl p-10 text-center relative" data-aos="zoom-in-up">
-                <i class="fas fa-gift text-3xl text-amber-200 mb-4 animate-bounce"></i>
-                <h2 class="font-script text-4xl mb-4 text-white">Wedding Gift</h2>
-                <p class="font-sans text-xs text-gray-300 leading-relaxed mb-6">
-                    Kehadiran dan doa restu Anda adalah kado terindah bagi kami. Namun jika Anda ingin memberikan tanda kasih, dapat melalui tombol di bawah ini:
-                </p>
-                
-                <button onclick="document.getElementById('gift-container').classList.toggle('hidden')" class="mb-6 bg-white text-black px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-gray-200 transition shadow-[0_0_15px_rgba(255,255,255,0.3)]">
-                    Tampilkan Rekening
-                </button>
-
-                <!-- Added animation class 'animate-reveal' here -->
-                <div id="gift-container" class="hidden space-y-4 animate-reveal text-left overflow-hidden">
-                    <div class="bg-white/10 p-5 rounded-2xl border border-white/10 flex justify-between items-center group hover:bg-white/20 transition">
-                        <div>
-                            <p class="font-bold text-white text-lg tracking-widest">BCA</p>
-                            <p class="text-xs text-gray-300">Romeo Wijaya</p>
-                            <p class="font-mono text-sm text-amber-200 mt-1">123 456 7890</p>
-                        </div>
-                        <button onclick="copyToClipboard('1234567890')" class="text-gray-400 hover:text-white transition">
-                            <i class="far fa-copy text-xl"></i>
-                        </button>
-                    </div>
-                    <div class="bg-white/10 p-5 rounded-2xl border border-white/10 flex justify-between items-center group hover:bg-white/20 transition">
-                        <div>
-                            <p class="font-bold text-white text-lg tracking-widest">MANDIRI</p>
-                            <p class="text-xs text-gray-300">Juliet Pratama</p>
-                            <p class="font-mono text-sm text-amber-200 mt-1">098 765 4321</p>
-                        </div>
-                        <button onclick="copyToClipboard('0987654321')" class="text-gray-400 hover:text-white transition">
-                            <i class="far fa-copy text-xl"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 8. RSVP -->
-        <section class="py-20 px-4 pb-32">
-            <div class="max-w-xl mx-auto glass-panel rounded-2xl p-8 md:p-12 shadow-2xl border border-white/10" data-aos="fade-up">
-                <h2 class="font-script text-4xl text-center mb-8 text-amber-50">RSVP & Wishes</h2>
-                
-                <form id="rsvpForm" class="space-y-5" onsubmit="submitRSVP(event)">
-                    <div class="relative">
-                        <input type="text" id="form-name" class="w-full bg-transparent border-b border-gray-500 py-2 focus:outline-none focus:border-amber-200 text-sm text-white placeholder-transparent peer" placeholder="Name" required>
-                        <label for="form-name" class="absolute left-0 -top-3.5 text-xs text-gray-400 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-amber-200 peer-focus:text-xs">Nama Lengkap</label>
-                    </div>
-
-                    <div class="relative pt-4">
-                        <label class="block text-xs text-gray-400 mb-2 uppercase tracking-wider">Konfirmasi Kehadiran</label>
-                        <div class="relative">
-                            <!-- Custom Glassmorphic Select -->
-                            <select id="form-attendance" class="custom-select w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-amber-200 focus:bg-white/10 text-sm text-white transition-all cursor-pointer hover:bg-white/10">
-                                <option value="Hadir">Saya akan hadir</option>
-                                <option value="Tidak Hadir">Maaf, tidak bisa hadir</option>
-                                <option value="Ragu">Masih Ragu-ragu</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="relative pt-2">
-                        <textarea rows="3" class="w-full bg-transparent border-b border-gray-500 py-2 focus:outline-none focus:border-amber-200 text-sm text-white placeholder-transparent peer" placeholder="Message"></textarea>
-                        <label class="absolute left-0 -top-1.5 text-xs text-gray-400 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-4 peer-focus:-top-1.5 peer-focus:text-amber-200 peer-focus:text-xs">Ucapan & Doa</label>
-                    </div>
-
-                    <button type="submit" class="w-full mt-4 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold py-3 rounded-lg transition duration-300 text-xs tracking-[0.2em] uppercase">
-                        Kirim Konfirmasi
+                    <button onclick="document.getElementById('gift-container-wrapper').classList.toggle('hidden')" class="mb-6 bg-white text-black px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-gray-200 transition shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+                        Tampilkan Rekening
                     </button>
-                </form>
+                    <div id="gift-container-wrapper" class="hidden space-y-4 text-left overflow-hidden"></div>
+                </div>
+            </section>
 
-                <div class="mt-8 flex flex-col gap-3 max-h-48 overflow-y-auto custom-scrollbar">
-                    <div class="bg-white/5 p-3 rounded-lg border-l-2 border-amber-500/50">
-                        <h4 class="font-bold text-xs text-white">Budi Santoso <span class="font-normal text-[10px] text-gray-400 ml-2">• Hadir</span></h4>
-                        <p class="text-xs text-gray-300 mt-1 italic">"Selamat Romeo & Juliet! Semoga bahagia selalu."</p>
+            <!-- 8. RSVP -->
+            <section class="py-20 px-4 pb-32">
+                <div class="max-w-xl mx-auto glass-panel rounded-2xl p-8 md:p-12 shadow-2xl border border-white/10" data-aos="fade-up">
+                    <h2 class="font-script text-4xl text-center mb-8 text-amber-50">RSVP & Wishes</h2>
+                    <form id="rsvpForm" class="space-y-6" onsubmit="submitRSVP(event)">
+                        <div class="relative">
+                            <input type="text" id="form-name" class="w-full bg-transparent border-b border-gray-500 py-2 focus:outline-none focus:border-amber-200 text-sm text-white placeholder-transparent peer" placeholder="Name" required>
+                            <label for="form-name" class="absolute left-0 -top-3.5 text-xs text-gray-400 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-amber-200 peer-focus:text-xs">Nama Lengkap</label>
+                        </div>
+
+                        <!-- NEW: Custom Dropdown -->
+                        <div class="relative pt-4">
+                            <label class="block text-xs text-gray-400 mb-2 uppercase tracking-wider">Konfirmasi Kehadiran</label>
+                            <div class="custom-dropdown relative">
+                                <input type="hidden" id="form-attendance" value="Hadir">
+                                <button type="button" id="custom-dropdown-button" class="w-full flex justify-between items-center bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-sm text-white transition-all cursor-pointer hover:bg-white/10 focus:outline-none focus:border-amber-200">
+                                    <span id="custom-dropdown-label">Saya akan hadir</span>
+                                    <i class="fas fa-chevron-down text-xs transition-transform"></i>
+                                </button>
+                                <div id="custom-dropdown-list" class="custom-dropdown-list absolute w-full mt-2 bg-black border border-white/10 rounded-lg z-20 overflow-hidden glass-panel">
+                                    <div class="custom-dropdown-item" data-value="Hadir">Saya akan hadir</div>
+                                    <div class="custom-dropdown-item" data-value="Tidak Hadir">Maaf, tidak bisa hadir</div>
+                                    <div class="custom-dropdown-item" data-value="Ragu">Masih Ragu-ragu</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative pt-2">
+                            <textarea rows="3" id="form-message" class="w-full bg-transparent border-b border-gray-500 py-2 focus:outline-none focus:border-amber-200 text-sm text-white placeholder-transparent peer" placeholder="Message"></textarea>
+                            <label for="form-message" class="absolute left-0 -top-1.5 text-xs text-gray-400 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-4 peer-focus:-top-1.5 peer-focus:text-amber-200 peer-focus:text-xs">Ucapan & Doa</label>
+                        </div>
+
+                        <button type="submit" class="w-full mt-4 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold py-3 rounded-lg transition duration-300 text-xs tracking-[0.2em] uppercase">
+                            Kirim Konfirmasi
+                        </button>
+                    </form>
+                    <div class="mt-8 flex flex-col gap-3 max-h-48 overflow-y-auto"></div>
+                </div>
+            </section>
+
+            <!-- CLOSING MESSAGE -->
+            <section class="py-12 px-6 text-center" data-aos="fade-up">
+                <div class="max-w-2xl mx-auto glass-clean p-8 rounded-2xl">
+                    <p class="font-serif italic text-lg md:text-xl text-gray-200 leading-relaxed">
+                        "We are truly overjoyed to share this special moment with you. Your presence would mean the world to us as we embark on this beautiful journey together."
+                    </p>
+                    <div class="mt-6">
+                        <p class="font-sans text-[10px] tracking-[0.3em] uppercase text-gray-400">With Love,</p>
+                        <h2 id="closing-names" class="font-script text-4xl text-amber-100 mt-2"></h2>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- CLOSING MESSAGE -->
-        <section class="py-12 px-6 text-center" data-aos="fade-up">
-            <div class="max-w-2xl mx-auto glass-clean p-8 rounded-2xl border-none">
-                <p class="font-serif italic text-lg md:text-xl text-gray-200 leading-relaxed">
-                    "We are truly overjoyed to share this special moment with you. Your presence would mean the world to us as we embark on this beautiful journey together."
-                </p>
-                <div class="mt-6">
-                    <p class="font-sans text-[10px] tracking-[0.3em] uppercase text-gray-400">With Love,</p>
-                    <h2 class="font-script text-4xl text-amber-100 mt-2">Romeo & Juliet</h2>
-                </div>
-            </div>
-        </section>
+            <!-- FOOTER -->
+            <footer class="py-6 text-center">
+                <p id="footer-text" class="font-sans text-[9px] text-gray-500 uppercase tracking-widest"></p>
+            </footer>
 
-        <!-- FOOTER -->
-        <footer class="bg-black/80 backdrop-blur-xl py-6 text-center border-t border-white/5">
-            <div class="flex justify-center gap-6 mb-4 opacity-50">
-                <i class="fab fa-instagram hover:text-white hover:scale-110 transition cursor-pointer"></i>
-                <i class="fab fa-whatsapp hover:text-white hover:scale-110 transition cursor-pointer"></i>
-            </div>
-            <p class="font-sans text-[9px] text-gray-600 uppercase tracking-widest">Created with <i class="fas fa-heart text-red-900 mx-1"></i> for Romeo & Juliet</p>
-        </footer>
-
-    </main>
+        </main>
+    </div>
 
     <!-- LIGHTBOX & TOAST -->
-    <div id="lightbox" class="fixed inset-0 z-[100] bg-black/95 hidden flex items-center justify-center p-4 backdrop-blur-md" onclick="closeLightbox()">
+    <div id="lightbox" class="fixed inset-0 z-[100] bg-black/95 hidden items-center justify-center p-4 backdrop-blur-md" onclick="closeLightbox()">
         <img id="lightbox-img" src="" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl border border-white/20">
         <button class="absolute top-4 right-4 text-white/50 hover:text-white text-4xl transition">&times;</button>
     </div>
-
-    <div id="toast" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-white text-black px-6 py-3 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.5)] opacity-0 transition duration-300 z-[110] flex items-center gap-3">
+    <div id="toast" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-white text-black px-6 py-3 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.5)] opacity-0 transition-all duration-300 z-[110] flex items-center gap-3">
         <i class="fas fa-check-circle text-green-600"></i>
         <span id="toast-message" class="text-xs font-bold uppercase tracking-wider">Berhasil!</span>
     </div>
@@ -535,39 +321,193 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Setup AOS with Mirroring (Parallax feel)
-            AOS.init({
-                duration: 1200,
-                once: false,
-                mirror: true, // Animasi ulang saat scroll ke atas
-                offset: 50,
-                easing: 'ease-out-cubic'
-            });
+            fetch('data.json')
+                .then(response => response.json())
+                .then(data => {
+                    populateContent(data);
+                    initCountdown(data.event.date);
+                })
+                .catch(error => console.error('Error fetching data:', error));
 
-            // 1. INTRO SEQUENCE ANIMATION
-            setTimeout(() => { document.getElementById('cover-bg-image').classList.add('active'); }, 100);
+            initAOS();
+            initIntroAnimation();
+            initGuestName();
+            initCustomDropdown();
+        });
+        
+        function populateContent(data) {
+            const { couple, event, story, gallery, gifts, media, verse } = data;
+            document.getElementById('page-title').textContent = `The Wedding of ${couple.groom.name} & ${couple.bride.name}`;
+            document.getElementById('bg-video-source').src = media.background_video;
+            document.getElementById('bg-image-fallback').src = media.background_image_fallback;
+            document.getElementById('bg-video').load();
+            document.getElementById('audio-source').src = media.audio;
+            document.getElementById('bg-music').load();
+            document.getElementById('intro-names').innerHTML = `${couple.groom.name} & ${couple.bride.name}`;
+            const eventDate = new Date(event.date);
+            const dateString = `${eventDate.getDate()} . ${eventDate.getMonth() + 1} . ${eventDate.getFullYear()}`;
+            document.getElementById('intro-date').innerHTML = `<span class="border-t border-white/50 w-8"></span><span class="tracking-widest uppercase text-sm">${dateString}</span><span class="border-t border-white/50 w-8"></span>`;
+            document.getElementById('hero-names').innerHTML = `${couple.groom.name} <br> <span class="text-4xl font-serif italic text-white/80">&</span> <br> ${couple.bride.name}`;
+            document.getElementById('verse-text').textContent = verse.text;
+            document.getElementById('verse-source').textContent = verse.source;
+            document.getElementById('groom-section').innerHTML = createCoupleHTML('The Groom', couple.groom, 'right', '-2deg');
+            document.getElementById('bride-section').innerHTML = createCoupleHTML('The Bride', couple.bride, 'left', '2deg');
+            document.getElementById('akad-section').innerHTML = createEventHTML('Akad Nikah', event.akad);
+            document.getElementById('resepsi-section').innerHTML = createEventHTML('Resepsi', event.resepsi);
+            document.getElementById('story-container').innerHTML = story.map((item, index) => createStoryHTML(item, index)).join('');
+            document.getElementById('gallery-container').innerHTML = gallery.map((imgSrc, index) => createGalleryItemHTML(imgSrc, index)).join('');
+            document.getElementById('gift-container-wrapper').innerHTML = gifts.map(createGiftHTML).join('');
+            document.getElementById('closing-names').textContent = `${couple.groom.name} & ${couple.bride.name}`;
+            document.getElementById('footer-text').innerHTML = `Created with <i class="fas fa-heart text-red-900 mx-1"></i> for ${couple.groom.name} & ${couple.bride.name}`;
+        }
+        
+        function createCoupleHTML(title, person, titlePos, rotation) {
+            return `
+                <h2 class="font-hand text-5xl text-amber-100 absolute -top-12 ${titlePos === 'right' ? '-left-4' : '-right-4'} z-20 rotate-[${titlePos === 'right' ? '-10deg' : '10deg'}] drop-shadow-md" data-aos="fade-${titlePos}" data-aos-delay="300">${title}</h2>
+                <div class="polaroid-frame w-64 rotate-[${rotation}] group-hover:rotate-0">
+                    <div class="aspect-[3/4] w-full bg-gray-800 overflow-hidden relative">
+                        <img src="${person.image}" alt="${person.name}" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100">
+                    </div>
+                    <div class="mt-4 text-center">
+                        <h3 class="font-serif text-2xl font-bold text-gray-800">${person.fullName}</h3>
+                    </div>
+                </div>
+                <div class="mt-8 text-center glass-panel px-6 py-4 max-w-xs" data-aos="fade-in" data-aos-delay="400">
+                    <p class="font-serif text-sm text-gray-300 italic">${person.family}</p>
+                    <p class="font-sans text-xs font-bold text-white mt-1 uppercase tracking-wider">${person.parents}</p>
+                </div>
+            `;
+        }
+        
+        function createEventHTML(title, details) {
+            return `
+                <div class="glass-panel p-6 h-full hover:bg-white/5 transition duration-500">
+                    <h3 class="font-serif text-3xl font-bold mb-2 text-amber-100">${title}</h3>
+                    <div class="w-10 h-0.5 bg-white/20 mx-auto mb-4"></div>
+                    <p class="text-sm font-sans mb-1 text-gray-300">${details.day}</p>
+                    <p class="text-xl font-bold mb-1">${details.date}</p>
+                    <p class="text-sm text-amber-200/80 mb-6">${details.time}</p>
+                    <div class="text-xs text-gray-300 font-sans leading-relaxed border-t border-white/10 pt-4">
+                        <p class="font-bold text-white mb-1">${details.venue}</p>
+                        <p>${details.address}</p>
+                    </div>
+                    <a href="${details.map_url}" target="_blank" class="mt-6 inline-block px-6 py-2 border border-white/30 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition">Lihat Peta</a>
+                </div>
+            `;
+        }
+
+        function createStoryHTML(item, index) {
+            const isOdd = index % 2 !== 0;
+            const fadeDirection = isOdd ? 'fade-left' : 'fade-right';
+            return `
+                <div class="relative flex flex-col md:flex-row gap-8 items-start md:items-center pl-10 md:pl-0" data-aos="${fadeDirection}">
+                    <div class="absolute left-0 md:left-1/2 md:-ml-2.5 w-5 h-5 rounded-full bg-amber-100 border-4 border-black/50 z-10 shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div>
+                    <div class="w-full md:w-1/2 ${isOdd ? 'md:order-2 md:pl-10' : 'md:pr-10 md:text-right'}">
+                        <span class="text-amber-200 font-bold text-xl font-serif">${item.year}</span>
+                        <h3 class="font-serif text-lg font-bold text-white mt-1">${item.title}</h3>
+                        <p class="font-sans text-xs text-gray-300 mt-2 leading-relaxed opacity-80">${item.description}</p>
+                    </div>
+                    <div class="hidden md:block w-1/2 ${isOdd ? 'md:order-1' : ''}"></div>
+                </div>
+            `;
+        }
+
+        function createGalleryItemHTML(imgSrc, index) {
+            const isLarge = index === 0;
+            const itemClass = isLarge 
+                ? 'col-span-2 row-span-2' 
+                : 'col-span-1 row-span-1';
+            return `
+                <div class="${itemClass} rounded-lg overflow-hidden cursor-pointer group relative" onclick="openLightbox(this)" data-aos="fade-up" data-aos-delay="${index * 100}">
+                    <img src="${imgSrc}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                </div>`;
+        }
+
+        function createGiftHTML(gift) {
+            return `
+                <div class="bg-white/10 p-5 rounded-2xl border border-white/10 flex justify-between items-center group hover:bg-white/20 transition">
+                    <div>
+                        <p class="font-bold text-white text-lg tracking-widest">${gift.bank}</p>
+                        <p class="text-xs text-gray-300">${gift.accountHolder}</p>
+                        <p class="font-mono text-sm text-amber-200 mt-1">${gift.accountNumber}</p>
+                    </div>
+                    <button onclick="copyToClipboard('${gift.accountNumber}')" class="text-gray-400 hover:text-white transition"><i class="far fa-copy text-xl"></i></button>
+                </div>
+            `;
+        }
+
+        function initAOS() {
+            AOS.init({ duration: 1000, once: true, offset: 50, easing: 'ease-out-cubic' });
+        }
+
+        function initIntroAnimation() {
             setTimeout(() => { document.getElementById('intro-title').classList.add('fade-in-delayed'); }, 500);
-            setTimeout(() => { document.getElementById('intro-names').classList.add('fade-in-delayed'); }, 1500);
-            setTimeout(() => { document.getElementById('intro-date').classList.add('fade-in-delayed'); }, 2500);
-            setTimeout(() => { 
-                const guest = document.getElementById('intro-guest');
-                guest.classList.remove('opacity-0', 'scale-90'); 
-            }, 3500);
-            setTimeout(() => { 
-                const btn = document.getElementById('intro-btn');
-                btn.classList.remove('opacity-0', 'translate-y-4');
-            }, 4500);
+            setTimeout(() => { document.getElementById('intro-names').classList.add('fade-in-delayed'); }, 1800);
+            setTimeout(() => { document.getElementById('intro-guest-wrapper').style.transition = 'opacity 1s'; document.getElementById('intro-guest-wrapper').classList.remove('opacity-0'); }, 3000);
+        }
 
-            // Get Guest Name
+        function initGuestName() {
             const urlParams = new URLSearchParams(window.location.search);
             const guestName = urlParams.get('to');
             if(guestName) {
                 document.getElementById('guest-name').textContent = escapeHtml(guestName);
                 document.getElementById('form-name').value = guestName;
             }
+        }
+
+        function initCustomDropdown() {
+            const dropdownButton = document.getElementById('custom-dropdown-button');
+            const dropdownList = document.getElementById('custom-dropdown-list');
+            const dropdownItems = dropdownList.querySelectorAll('.custom-dropdown-item');
+            const hiddenInput = document.getElementById('form-attendance');
+            const dropdownLabel = document.getElementById('custom-dropdown-label');
+            const dropdownIcon = dropdownButton.querySelector('i');
+
+            dropdownButton.addEventListener('click', () => {
+                dropdownList.classList.toggle('active');
+                dropdownIcon.classList.toggle('rotate-180');
+            });
+
+            dropdownItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    hiddenInput.value = item.dataset.value;
+                    dropdownLabel.textContent = item.textContent;
+                    dropdownList.classList.remove('active');
+                    dropdownIcon.classList.remove('rotate-180');
+                });
+            });
             
-            initCountdown();
-        });
+            document.addEventListener('click', (e) => {
+                if (!dropdownButton.contains(e.target) && !dropdownList.contains(e.target)) {
+                    dropdownList.classList.remove('active');
+                    dropdownIcon.classList.remove('rotate-180');
+                }
+            });
+        }
+        
+        function initCountdown(dateString) {
+            const weddingDate = new Date(dateString).getTime();
+            const timer = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = weddingDate - now;
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                const boxClass = "w-16 h-16 glass-clean rounded-full flex flex-col items-center justify-center border border-white/20";
+                const numClass = "text-xl font-bold text-white font-serif leading-none";
+                const labelClass = "text-[8px] uppercase text-gray-300 mt-1 tracking-widest";
+                document.getElementById("countdown").innerHTML = `
+                    <div class="${boxClass}"><span class="${numClass}">${days}</span><span class="${labelClass}">Hari</span></div>
+                    <div class="${boxClass}"><span class="${numClass}">${hours}</span><span class="${labelClass}">Jam</span></div>
+                    <div class="${boxClass}"><span class="${numClass}">${minutes}</span><span class="${labelClass}">Menit</span></div>
+                    <div class="${boxClass}"><span class="${numClass}">${seconds}</span><span class="${labelClass}">Detik</span></div>`;
+                if (distance < 0) {
+                    clearInterval(timer);
+                    document.getElementById("countdown").innerHTML = `<div class="text-white text-lg font-serif">The event has started!</div>`;
+                }
+            }, 1000);
+        }
 
         function escapeHtml(text) {
             return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
@@ -575,35 +515,27 @@
 
         function openInvitation() {
             const cover = document.getElementById('cover');
+            const bodyWrapper = document.getElementById('body-wrapper');
             const mainContent = document.getElementById('main-content');
             const audio = document.getElementById('bg-music');
             const musicBtn = document.getElementById('music-control');
 
-            // Fade out text elements first
-            cover.children[1].style.opacity = '0';
-            cover.children[1].style.transition = 'opacity 0.5s';
-
+            cover.classList.add('cover-exit');
+            
             setTimeout(() => {
-                cover.classList.add('cover-exit');
-                
-                setTimeout(() => {
-                    mainContent.classList.remove('hidden');
-                    void mainContent.offsetWidth; 
-                    mainContent.classList.remove('opacity-0');
-                    
-                    musicBtn.classList.remove('hidden');
-                    audio.play().catch(e => console.log("Autoplay blocked"));
-                    document.body.style.overflowY = 'auto';
-                    AOS.refresh(); 
-                }, 800);
-            }, 500);
+                cover.style.display = 'none';
+                bodyWrapper.classList.remove('hidden');
+                mainContent.classList.remove('opacity-0');
+                musicBtn.classList.remove('hidden');
+                audio.play().catch(e => console.log("Autoplay blocked."));
+                document.body.style.overflowY = 'auto';
+                AOS.refresh(); 
+            }, 800);
         }
 
-        // Music Control
         const musicBtn = document.getElementById('music-control');
         const audio = document.getElementById('bg-music');
         let isPlaying = true;
-
         musicBtn.addEventListener('click', () => {
             if (isPlaying) {
                 audio.pause();
@@ -617,41 +549,13 @@
             isPlaying = !isPlaying;
         });
 
-        function initCountdown() {
-            const weddingDate = new Date("Dec 25, 2025 08:00:00").getTime();
-            const timer = setInterval(function() {
-                const now = new Date().getTime();
-                const distance = weddingDate - now;
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                
-                const boxClass = "w-16 h-16 glass-clean rounded-full flex flex-col items-center justify-center border border-white/20 backdrop-blur-sm";
-                const numClass = "text-xl font-bold text-white font-serif leading-none";
-                const labelClass = "text-[8px] uppercase text-gray-300 mt-1 tracking-widest";
-
-                document.getElementById("countdown").innerHTML = `
-                    <div class="${boxClass}"><span class="${numClass}">${days}</span><span class="${labelClass}">Hari</span></div>
-                    <div class="${boxClass}"><span class="${numClass}">${hours}</span><span class="${labelClass}">Jam</span></div>
-                    <div class="${boxClass}"><span class="${numClass}">${minutes}</span><span class="${labelClass}">Menit</span></div>
-                    <div class="${boxClass}"><span class="${numClass}">${seconds}</span><span class="${labelClass}">Detik</span></div>
-                `;
-                if (distance < 0) clearInterval(timer);
-            }, 1000);
-        }
-
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => showToast("Disalin!"));
-        }
-
+        function copyToClipboard(text) { navigator.clipboard.writeText(text).then(() => showToast("Nomor rekening disalin!")); }
         function showToast(msg) {
             const toast = document.getElementById('toast');
             document.getElementById('toast-message').textContent = msg;
-            toast.classList.remove('opacity-0', 'translate-y-10');
-            setTimeout(() => toast.classList.add('opacity-0', 'translate-y-10'), 3000);
+            toast.classList.remove('opacity-0');
+            setTimeout(() => { toast.classList.add('opacity-0'); }, 3000);
         }
-
         function openLightbox(el) {
             document.getElementById('lightbox-img').src = el.querySelector('img').src;
             document.getElementById('lightbox').classList.remove('hidden');
@@ -660,14 +564,17 @@
         
         function submitRSVP(e) {
             e.preventDefault();
-            const btn = e.target.querySelector('button');
-            const originalText = btn.innerText;
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
             btn.innerHTML = 'Mengirim...';
             btn.disabled = true;
             setTimeout(() => {
-                showToast("Terkirim!");
+                showToast("Konfirmasi & ucapan terkirim!");
                 btn.innerHTML = 'Terima Kasih';
-                setTimeout(() => { btn.innerText = originalText; btn.disabled = false; }, 2000);
+                e.target.reset();
+                document.getElementById('custom-dropdown-label').textContent = 'Saya akan hadir';
+                document.getElementById('form-attendance').value = 'Hadir';
+                setTimeout(() => { btn.innerHTML = originalText; btn.disabled = false; }, 2000);
             }, 1000);
         }
     </script>
