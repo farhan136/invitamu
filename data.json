@@ -1,17 +1,17 @@
 {
     "couple": {
         "groom": {
-            "name": "Romeo",
-            "fullName": "Romeo Wijaya",
-            "family": "Putra Pertama dari Keluarga",
-            "parents": "Bpk. Wijaya & Ibu Siti",
+            "name": "Farhan",
+            "fullName": "Farhan Anshari",
+            "family": "Putra Kedua dari Keluarga",
+            "parents": "Bpk. Tukirin & Ibu Yustina Siti Lestari",
             "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop"
         },
         "bride": {
-            "name": "Juliet",
-            "fullName": "Juliet Pratama",
+            "name": "Icha",
+            "fullName": "Rizka Tazqyyah",
             "family": "Putri Kedua dari Keluarga",
-            "parents": "Bpk. Pratama & Ibu Dewi",
+            "parents": "Bpk. Junaidi & Ibu Susilawati",
             "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=600&auto=format&fit=crop"
         }
     },
@@ -19,19 +19,21 @@
         "date": "2025-12-25T08:00:00",
         "akad": {
             "day": "SABTU",
-            "date": "25 Desember 2025",
+            "date": "07 Februari 2026",
             "time": "08:00 WIB - 10:00 WIB",
-            "venue": "Masjid Agung Al-Azhar",
-            "address": "Jl. Sisingamangaraja No.1, RT.2/RW.1, Selong, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12110",
-            "map_url": "https://maps.google.com"
+            "venue": "Graha Sativa",
+            "address": "Komplek BULOG 1, Jl. Yanatera Raya, RT.003/RW.001, Jatimelati, Pondok Melati, Bekasi, West Java 17415",
+            "map_url": "https://maps.app.goo.gl/cgCQbXqtTTLZ8H9Q6"
         },
         "resepsi": {
             "day": "SABTU",
-            "date": "25 Desember 2025",
-            "time": "11:00 WIB - Selesai",
-            "venue": "Grand Ballroom Hotel Indonesia",
-            "address": "Jl. M.H. Thamrin No.1, Menteng, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10310",
-            "map_url": "https://maps.google.com"
+            "date": "07 Februari 2026",
+            "time": "11:00 WIB - 13:00 WIB",
+            "datetime": "2026-02-07T11:00:00",
+            "end_datetime": "2026-02-07T13:00:00",
+            "venue": "Graha Sativa",
+            "address": "Komplek BULOG 1, Jl. Yanatera Raya, RT.003/RW.001, Jatimelati, Pondok Melati, Bekasi, West Java 17415",
+            "map_url": "https://maps.app.goo.gl/cgCQbXqtTTLZ8H9Q6"
         }
     },
     "story": [
@@ -43,7 +45,7 @@
         {
             "year": "2023",
             "title": "She Said Yes",
-            "description": "Di bawah langit senja Bali, sebuah cincin dan janji setia terucap. Momen magis yang membawa kami ke hari ini."
+            "description": "Di bawah langit senja Bali, sebuah cincin dan janji setia terucap."
         }
     ],
     "gallery": [
@@ -56,12 +58,12 @@
     "gifts": [
         {
             "bank": "BCA",
-            "accountHolder": "Romeo Wijaya",
+            "accountHolder": "Farhan Anshari",
             "accountNumber": "1234567890"
         },
         {
             "bank": "MANDIRI",
-            "accountHolder": "Juliet Pratama",
+            "accountHolder": "Rizka Tazqyyah",
             "accountNumber": "0987654321"
         }
     ],

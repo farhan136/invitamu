@@ -12,18 +12,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;700&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         /* Custom Font Setup */
-        .font-script { font-family: 'Great Vibes', cursive; }
-        .font-hand { font-family: 'Mrs Saint Delafield', cursive; }
-        .font-serif { font-family: 'Cormorant Garamond', serif; }
-        .font-sans { font-family: 'Montserrat', sans-serif; }
+        .font-script { font-family: 'Tangerine', cursive; }
+        .font-hand { font-family: 'Tangerine', cursive; }
+        .font-serif { font-family: 'Public Sans', sans-serif; }
+        .font-sans { font-family: 'Public Sans', sans-serif; }
         
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 3px; }
@@ -96,6 +95,10 @@
         .cover-exit {
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
+        }
+        .fade-out-fast {
+            opacity: 0 !important;
+            transition: opacity 0.8s ease-out;
         }
         
         /* NEW: Custom Dropdown for RSVP */
@@ -321,11 +324,11 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            fetch('data.json')
+            fetch('data.json?v=' + new Date().getTime())
                 .then(response => response.json())
                 .then(data => {
                     populateContent(data);
-                    initCountdown(data.event.date);
+                    initCountdown(data.event.resepsi.datetime, data.event.resepsi.end_datetime);
                 })
                 .catch(error => console.error('Error fetching data:', error));
 
@@ -441,9 +444,41 @@
         }
 
         function initIntroAnimation() {
-            setTimeout(() => { document.getElementById('intro-title').classList.add('fade-in-delayed'); }, 500);
-            setTimeout(() => { document.getElementById('intro-names').classList.add('fade-in-delayed'); }, 1800);
-            setTimeout(() => { document.getElementById('intro-guest-wrapper').style.transition = 'opacity 1s'; document.getElementById('intro-guest-wrapper').classList.remove('opacity-0'); }, 3000);
+            const title = document.getElementById('intro-title');
+            const names = document.getElementById('intro-names');
+            const guestWrapper = document.getElementById('intro-guest-wrapper');
+
+            // Hide guest wrapper initially, and ensure names is also hidden
+            guestWrapper.classList.add('opacity-0');
+            names.classList.add('opacity-0');
+
+            // 1. Fade in "The Wedding Of"
+            setTimeout(() => {
+                title.classList.remove('opacity-0');
+                title.classList.add('fade-in-delayed');
+            }, 500); // Start after 0.5s
+
+            // 2. Fade out "The Wedding Of"
+            setTimeout(() => {
+                title.classList.add('fade-out-fast');
+            }, 2500); // Start fade-out after 2s
+
+            // 3. Fade in "{Nama Pengantin}"
+            setTimeout(() => {
+                names.classList.remove('opacity-0');
+                names.classList.add('fade-in-delayed');
+            }, 3500); // Start after the first title has faded out
+
+            // 4. Fade out "{Nama Pengantin}"
+            setTimeout(() => {
+                names.classList.add('fade-out-fast');
+            }, 5500); // Start fade-out after 2s
+
+            // 5. Show the final guest wrapper content instantly
+            setTimeout(() => {
+                guestWrapper.style.transition = 'opacity 1s ease-in-out';
+                guestWrapper.classList.remove('opacity-0');
+            }, 6500); // Start after the names have faded out
         }
 
         function initGuestName() {
@@ -485,26 +520,40 @@
             });
         }
         
-        function initCountdown(dateString) {
-            const weddingDate = new Date(dateString).getTime();
+        function initCountdown(startDateTimeString, endDateTimeString) {
+            const startTime = new Date(startDateTimeString).getTime();
+            const endTime = new Date(endDateTimeString).getTime();
+            
             const timer = setInterval(() => {
                 const now = new Date().getTime();
-                const distance = weddingDate - now;
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                const boxClass = "w-16 h-16 glass-clean rounded-full flex flex-col items-center justify-center border border-white/20";
-                const numClass = "text-xl font-bold text-white font-serif leading-none";
-                const labelClass = "text-[8px] uppercase text-gray-300 mt-1 tracking-widest";
-                document.getElementById("countdown").innerHTML = `
-                    <div class="${boxClass}"><span class="${numClass}">${days}</span><span class="${labelClass}">Hari</span></div>
-                    <div class="${boxClass}"><span class="${numClass}">${hours}</span><span class="${labelClass}">Jam</span></div>
-                    <div class="${boxClass}"><span class="${numClass}">${minutes}</span><span class="${labelClass}">Menit</span></div>
-                    <div class="${boxClass}"><span class="${numClass}">${seconds}</span><span class="${labelClass}">Detik</span></div>`;
-                if (distance < 0) {
+                
+                // Updated styling for a single long box
+                const numClass = "block text-3xl font-bold text-white font-serif leading-none";
+                const labelClass = "block text-[8px] uppercase text-gray-300 mt-1 tracking-widest";
+
+                if (now < startTime) {
+                    // Countdown to start time
+                    const distance = startTime - now;
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    
+                    document.getElementById("countdown").innerHTML = `
+                        <div class="w-full glass-clean rounded-lg p-4 flex justify-around items-center text-center">
+                            <div><span class="${numClass}">${days}</span><span class="${labelClass}">Hari</span></div>
+                            <div><span class="${numClass}">${hours}</span><span class="${labelClass}">Jam</span></div>
+                            <div><span class="${numClass}">${minutes}</span><span class="${labelClass}">Menit</span></div>
+                            <div><span class="${numClass}">${seconds}</span><span class="${labelClass}">Detik</span></div>
+                        </div>`;
+                } else if (now >= startTime && now < endTime) {
+                    // During the event
                     clearInterval(timer);
-                    document.getElementById("countdown").innerHTML = `<div class="text-white text-lg font-serif">The event has started!</div>`;
+                    document.getElementById("countdown").innerHTML = '<div class="text-white text-lg font-serif tracking-widest uppercase">Acara Sedang Berlangsung</div>';
+                } else {
+                    // After the event
+                    clearInterval(timer);
+                    document.getElementById("countdown").innerHTML = '<div class="text-white text-lg font-serif tracking-widest uppercase">Terima Kasih Atas Doa Restu Anda</div>';
                 }
             }, 1000);
         }
