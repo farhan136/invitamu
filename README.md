@@ -14,7 +14,7 @@ To view this invitation locally, you need to serve the files using a simple web 
     If it's not installed, please download it from [python.org](https://www.python.org/downloads/).
 
 2.  **Navigate to the project directory:**
-    Open your terminal or command prompt and go to the directory where `index2.html` and `data.json` are located.
+    Open your terminal or command prompt and go to the directory where `index.html` and `data.json` are located.
     ```bash
     cd /home/farhan/non_kerjaan/invitamu 
     ```
@@ -30,7 +30,7 @@ To view this invitation locally, you need to serve the files using a simple web 
 4.  **Open in your browser:**
     Open your web browser (e.g., Chrome, Firefox) and navigate to:
     ```
-    http://localhost:8000/index2.html
+    http://localhost:8000/index.html
     ```
 
 ## Customizing Content
@@ -48,5 +48,5 @@ Make sure to follow the JSON structure when making changes.
 
 ## Troubleshooting
 
-*   **CORS Error (if opening `index2.html` directly):** This is why you need to run the `python3 -m http.server` command. Opening `file:///.../index2.html` directly will not work.
-*   **Port already in use:** If port `8000` is already in use, you can try another port by running `python3 -m http.server 8080` (then access via `http://localhost:8080/index2.html`).
+*   **CORS Error (if opening `index.html` directly):** This is why you need to run the `python3 -m http.server` command. Opening `file:///.../index.html` directly will not work.
+*   **Port already in use:** If port `8000` is already in use, you can try another port by running `python3 -m http.server 8080` (then access via `http://localhost:8080/index.html`).
